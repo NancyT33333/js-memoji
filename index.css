@@ -1,0 +1,59 @@
+html {
+    background-color: #CFD0CF;
+}
+
+.main-header {
+    text-align: center;
+    line-height: 47px;
+    font: 42px 'Arial', sans-serif;
+    padding-top: 40px;
+    color: #434344;
+    margin-bottom: 40px;
+
+}
+
+.cards ul {
+    display: block;
+    width: 650px;
+    margin: 0 auto; 
+ 
+    overflow: visible;
+   perspective: 600px;
+  
+}
+
+.card {
+    
+    box-sizing: border-box;
+    width: 130px;
+    display: block;
+    height: 130px;
+    margin: 0 25px 25px 0;
+    border: 5px solid white;
+    border-radius: 9px;
+    float: left;
+    box-shadow: 1px 1px 5px rgba(122, 122, 122, 0.5);
+
+    background: linear-gradient(45deg, rgba(34, 171, 147, 1) 0%,  rgba(25, 102, 141, 1) 100%);
+     
+    transition-property: transform;
+    transition-duration: 2s;
+
+}
+
+.card-front .cart-back {
+    
+}
+ul:after {
+    content: '';
+    clear: both;
+    display: table;
+  
+
+}
+
+.card:hover {
+    perspective-origin: bottom;
+    transform: rotateY(180deg);
+    
+}
