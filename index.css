@@ -1,13 +1,17 @@
 html {
     background-color: #CFD0CF;
+    font: 42px 'Arial', sans-serif;
+    line-height: 47px;
+    color: #434344;
+    text-align: center;
 }
 
 .main-header {
     text-align: center;
-    line-height: 47px;
-    font: 42px 'Arial', sans-serif;
+
+
     padding-top: 40px;
-    color: #434344;
+
     margin-bottom: 40px;
 
 }
@@ -89,4 +93,83 @@ input:checked~.card-front {
 
 input:checked~.card-back {
   transform: rotateY(360deg);
+}
+
+.modal {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+
+
+    left: 0;
+}
+.modal::before {
+    position: absolute;
+
+    content: '';
+    height: 100vh;
+    width: 100vw;
+    left: calc(50% - 50vw);
+    top: calc(50% - 50vh);
+    background: black;
+    opacity: .4;
+
+
+
+}
+
+.popup {
+    position: relative;
+    font-size: 48px;
+    background: white;
+    padding-top: 30px;
+    text-align:center;
+    min-width:350px;
+    z-index: 10;
+    font-weight: bold;
+
+}
+
+.popup p span:nth-of-type(1) {    animation: wave 5s  0.000s ease-out infinite; }
+
+.popup p span:nth-of-type(2)  { animation: wave 5s -4.227s ease-out infinite; }
+
+.popup p span:nth-of-type(3) { animation: wave 5s -3.455s ease-out infinite; }
+
+@keyframes wave {
+    0% {font-size: 50px; }
+    50% { font-size: 30px;   }
+    100% { font-size: 48px; }
+}
+
+.popup button {
+    margin: 40px 0 30px;
+    background: linear-gradient(90deg, rgba(34,171,147,1) 0%, rgba(25,102,141,1) 100%);
+    border-radius: 8px;
+    border: 0px;
+    padding: 0 30px;
+    height: 40px;
+    color: white;
+    font: 20px 'Arial', sans-serif;
+    font-weight: bold;
+    box-shadow: 1px 1px 4px black;
+}
+
+button:active {
+    box-shadow: inset 2px 1px 8px black;
+
+}
+
+.hidden {
+    display: none;
+}
+
+span.timer {
+    font-weight: bold;
+    font-size: 32px;
 }
