@@ -2,18 +2,76 @@ var cardsCollection = ["🐰", "🐰", " 🐹", " 🐹", " 🐨", " 🐨", " �
 cardsCollection = shuffle(cardsCollection);
 var game = new Game();
 
+
+
+
 document.addEventListener('click', function(event) {
+
     if (event.target.classList.contains('card-back')) {
-        if (!game.opened_cards[0].matched === true) {
-            event.target.parentNode.children[0].checked = false; 
+
+        let id = event.target.parentNode.id;
+        let card = getCardById(id);
+        if (!card.matched ===true && game.opened_cards.length < 2) {
+            event.target.parentNode.children[0].checked = false;  // remove from cards_opened
+            let id = event.target.parentNode.id;
+            closeOpened(id, game);
+
         }
     }
 });
+
+function tick() {
+
+    const timeDisplayed = document.querySelector('.timer');
+    if (parseInt(timeDisplayed.textContent.split(':')[1]) > 0) {
+        timeDisplayed.textContent = (timeDisplayed.textContent.split(':')[1] > 10 ?
+             '00:' + (timeDisplayed.textContent.split(':')[1] - 1) :  '00:0' + (timeDisplayed.textContent.split(':')[1] - 1));
+
+        game.timerId = setTimeout(tick, 1000);
+    } else {
+        document.querySelector('.loose').parentNode.classList.remove('hidden');
+
+}
+}
+
+function getCardById(id) {
+
+    for (card in game.matched_cards ) {
+        if (game.matched_cards[card].id === id) {
+            return game.matched_cards[card];
+        }
+    }
+    for (card in game.opened_cards ) {
+        if (game.opened_cards[card].id === id) {
+            return game.opened_cards[card];
+        }
+    }
+
+}
+
+function closeOpened(id, game) {
+    for (card in game.opened_cards) {
+        if (game.opened_cards[card].id === id) {
+
+            var elemToChangeBackground = document.querySelector('#' + id);
+            elemToChangeBackground.children[2].style.background = "white";
+            elemToChangeBackground.children[2].style.borderColor = "white";
+            game.opened_cards.splice(card, 1);
+
+
+        }
+    }
+}
+
+
 
 document.addEventListener('click', function(event) {
 
     // clicking on the empty card will put random emoji from a collection
     if (event.target.classList.contains('card-front')) {
+
+        document.querySelector('.timer').textContent==='01:00' ? game.timer() : 0;
+
         var emoji = event.target.parentNode.children[2].textContent;
 
         if (emoji === '') {
@@ -35,6 +93,10 @@ document.addEventListener('click', function(event) {
                     game.opened_cards[card].matched = true;
                     game.matched_cards.push(game.opened_cards[card]);
                     game.opened_cards.splice(card, 1);
+                    if (game.matched_cards.length === 12) {
+                        document.querySelector('.win').parentNode.classList.remove('hidden');
+                        clearInterval(game.timerId);
+                    }
 
                 }
 
@@ -101,6 +163,13 @@ function Game() {
     // opened_cards=[{'list_elem4', "🐰"}, {'list_elem5', "🐰"}
     this.matched_cards = [];
     this.pairs_found = 0;
-    this.decide = ()=>this.opened_cards[this.opened_cards.length - 1].value === this.opened_cards[this.opened_cards.length - 2].value ? true : false;
+    this.decide = ()=>this.opened_cards[this.opened_cards.length - 1].value === this.opened_cards[this.opened_cards.length - 2].value;
+    this.timer = function () {
+        setTimeout(function() {
+        var time = document.querySelector('.timer');
+        time.textContent = '00:59';
+        setTimeout(tick, 1000 );
+    }, 1000);}
+    this.timerId = undefined;
 
 }

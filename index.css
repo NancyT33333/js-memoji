@@ -51,7 +51,7 @@ li {
 }
 
 li:nth-child(4n) {
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .card-front {
@@ -151,7 +151,7 @@ input:checked~.card-back {
     margin: 40px 0 30px;
     background: linear-gradient(90deg, rgba(34,171,147,1) 0%, rgba(25,102,141,1) 100%);
     border-radius: 8px;
-    border: 0px;
+    border: 0;
     padding: 0 30px;
     height: 40px;
     color: white;
@@ -172,4 +172,5 @@ button:active {
 span.timer {
     font-weight: bold;
     font-size: 32px;
+    line-height: 36px;
 }
