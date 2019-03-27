@@ -1,53 +1,45 @@
 html {
     background-color: #CFD0CF;
     font: 42px 'Arial', sans-serif;
-    line-height: 47px;
     color: #434344;
     text-align: center;
 }
 
 .main-header {
     text-align: center;
-
-
     padding-top: 40px;
-
     margin-bottom: 40px;
-
 }
 
- ul {
+ul {
     display: block;
     width: 595px;
-    margin: 0 auto; 
- 
+    margin: 0 auto;
     overflow: visible;
-   perspective: 600px;
-  
+    perspective: 600px;
 }
-
 
 input {
     display: none;
 }
 
 ul {
-  list-style: none;
+    list-style: none;
 }
 
 ul::after {
-  content: '';
-  clear: both;
-  display: table;
+    content: '';
+    clear: both;
+    display: table;
 }
 
 li {
-  height: 130px;
-  width: 130px;
-  perspective: 600px;
-  position: relative;
-  margin: 0 25px 25px 0;
-  float: left;
+    height: 130px;
+    width: 130px;
+    perspective: 600px;
+    position: relative;
+    margin: 0 25px 25px 0;
+    float: left;
 }
 
 li:nth-child(4n) {
@@ -55,62 +47,54 @@ li:nth-child(4n) {
 }
 
 .card-front {
-  background: linear-gradient(45deg, rgba(34, 171, 147, 1) 0%, rgba(25, 102, 141, 1) 100%);
+    background: linear-gradient(45deg, rgba(34, 171, 147, 1) 0%, rgba(25, 102, 141, 1) 100%);
 }
 
 .card-back {
-  font-size: 75px;
-  text-align: center;
-  transform: rotateY(180deg);
-  line-height: 120px;
+    font-size: 75px;
+    text-align: center;
+    transform: rotateY(180deg);
+    line-height: 120px;
     background: white;
-    
 }
 
-.card-front,
-.card-back {
-  backface-visibility: hidden;
-  position: absolute;
-  border: 5px solid white;
-  width: 130px;
-  height: 130px;
-  display: block;
-  box-sizing: border-box;
-  border-radius: 9px;
-  box-shadow: 1px 1px 5px rgba(122, 122, 122, 0.5);
-  transition-property: transform;
-  transition-duration: 2s;
+.card-front, .card-back {
+    backface-visibility: hidden;
+    position: absolute;
+    border: 5px solid white;
+    width: 130px;
+    height: 130px;
+    display: block;
+    box-sizing: border-box;
+    border-radius: 9px;
+    box-shadow: 1px 1px 5px rgba(122, 122, 122, 0.5);
+    transition-property: transform;
+    transition-duration: 2s;
 }
 
 input {
-  display: none;
+    display: none;
 }
 
 input:checked~.card-front {
-  perspective-origin: bottom;
-  transform: rotateY(180deg);
+    perspective-origin: bottom;
+    transform: rotateY(180deg);
 }
 
 input:checked~.card-back {
-  transform: rotateY(360deg);
+    transform: rotateY(360deg);
 }
 
 .modal {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: absolute;
     height: 100vh;
     width: 100vw;
     top: 0;
-
-
     left: 0;
 }
+
 .modal::before {
     position: absolute;
-
     content: '';
     height: 100vh;
     width: 100vw;
@@ -118,41 +102,60 @@ input:checked~.card-back {
     top: calc(50% - 50vh);
     background: black;
     opacity: .4;
-
-
-
 }
 
 .popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     font-size: 48px;
     background: white;
     padding-top: 30px;
-    text-align:center;
-    min-width:350px;
+    min-width: 350px;
     z-index: 10;
     font-weight: bold;
+    width: fit-content;
+    margin: 0 auto;
+    top: calc(50% - 100px);
+}
+.wrapper {
+    height: 48px;
 
+
+    margin: 0 0 40px;
 }
 
-.popup p span:nth-of-type(1) {    animation: wave 5s  0.000s ease-out infinite; }
+.wrapper p span {
+    display: inline-block;
+    overflow: visible;
+}
 
-.popup p span:nth-of-type(2)  { animation: wave 5s -4.227s ease-out infinite; }
 
-.popup p span:nth-of-type(3) { animation: wave 5s -3.455s ease-out infinite; }
+ .popup div p span:nth-of-type(1) {    animation: wave  .7s linear 0s alternate infinite; transform-origin: 50% 50%;    }
 
+.popup div p span:nth-of-type(2)  { animation: wave  .7s linear -0.2s alternate infinite; transform-origin: 50% 50%;  }
+
+.popup div p span:nth-of-type(3) {  animation: wave  .7s linear -0.35s alternate infinite; transform-origin: 50% 50%;  }
+
+.popup div p span:nth-of-type(4)  {  animation: wave  .7s linear -0.5s alternate infinite; transform-origin: 50% 50%;  }
+
+.popup div p span:nth-of-type(5) {  animation: wave  .7s linear -0.7s  alternate infinite; transform-origin: 50% 50%;  }
 @keyframes wave {
-    0% {font-size: 50px; }
-    50% { font-size: 30px;   }
-    100% { font-size: 48px; }
+    0%   {transform: translate3d(0,0,0) scale3d(1,1,1);}
+    40%  {transform: translate3d(0,30%,0) scale3d(.7,1.3,1);}
+    100% {transform: translate3d(0,50%,0) scale3d(1.3,.7,1);}
 }
+
+
 
 .popup button {
-    margin: 40px 0 30px;
+    margin: 0 0 30px;
     background: linear-gradient(90deg, rgba(34,171,147,1) 0%, rgba(25,102,141,1) 100%);
     border-radius: 8px;
     border: 0;
     padding: 0 30px;
+    display: block;
     height: 40px;
     color: white;
     font: 20px 'Arial', sans-serif;
@@ -162,7 +165,6 @@ input:checked~.card-back {
 
 button:active {
     box-shadow: inset 2px 1px 8px black;
-
 }
 
 .hidden {
