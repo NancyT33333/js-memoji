@@ -26,10 +26,13 @@ function tick() {
     if (parseInt(timeDisplayed.textContent.split(':')[1]) > 0) {
         timeDisplayed.textContent = (timeDisplayed.textContent.split(':')[1] > 10 ?
              '00:' + (timeDisplayed.textContent.split(':')[1] - 1) :  '00:0' + (timeDisplayed.textContent.split(':')[1] - 1));
-
         game.timerId = setTimeout(tick, 1000);
+
     } else {
         document.querySelector('.loose').parentNode.classList.remove('hidden');
+        clearInterval(game.timerId);
+
+
 
 }
 }
@@ -94,8 +97,10 @@ document.addEventListener('click', function(event) {
                     game.matched_cards.push(game.opened_cards[card]);
                     game.opened_cards.splice(card, 1);
                     if (game.matched_cards.length === 12) {
-                        document.querySelector('.win').parentNode.classList.remove('hidden');
                         clearInterval(game.timerId);
+
+                        document.querySelector('.win').parentNode.classList.remove('hidden');
+
                     }
 
                 }
@@ -128,6 +133,20 @@ document.addEventListener('click', function(event) {
     }
 
 });
+
+const buttonWin = document.querySelector('.button_win');
+
+buttonWin.addEventListener('click', function() {
+    game.start_new();
+    event.stopPropagation();
+})
+
+const buttonLoose = document.querySelector('.button_loose');
+buttonLoose.addEventListener('click', function() {
+    game.start_new();
+    event.stopPropagation();
+})
+
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -165,11 +184,50 @@ function Game() {
     this.pairs_found = 0;
     this.decide = ()=>this.opened_cards[this.opened_cards.length - 1].value === this.opened_cards[this.opened_cards.length - 2].value;
     this.timer = function () {
-        setTimeout(function() {
+
+        game.timerId = setTimeout(function() {
         var time = document.querySelector('.timer');
         time.textContent = '00:59';
-        setTimeout(tick, 1000 );
-    }, 1000);}
-    this.timerId = undefined;
 
+        tick();
+
+    }, 1000);
+
+
+    }
+    this.timerId = undefined;
+    this.start_new = function () {
+
+        //перевернуть,  убрать окно, опустошить массивы открытых карточек и мэтчед
+        cardsCollection = shuffle(["🐰", "🐰", " 🐹", " 🐹", " 🐨", " 🐨", " 🐷", " 🐷", " 🐸", " 🐸", " 🐿", " 🐿"]);
+
+
+        document.querySelector('.timer').textContent='01:00';
+
+        var collection = document.querySelectorAll('div.card-back');
+
+        for (var i = 0, len = collection.length; i < len; i++) {
+            var elem = collection[i];
+            elem.textContent='';
+
+            elem.parentNode.children[0].checked=false;
+            var elemToChangeBackground = elem.parentNode;
+            elemToChangeBackground.children[2].style.background = "white";
+            elemToChangeBackground.children[2].style.borderColor = "white";
+        };
+
+        this.opened_cards = [];
+        this.matched_cards = [];
+        this.timerId=undefined;
+        document.querySelector('.button_win').parentNode.parentNode.classList.add('hidden');
+        document.querySelector('.button_loose').parentNode.parentNode.classList.add('hidden');
+        clearAllIntervals();
+    }
+
+}
+
+
+function clearAllIntervals() {
+    for (var i = 1; i < 99999; i++)
+        window.clearInterval(i);
 }
